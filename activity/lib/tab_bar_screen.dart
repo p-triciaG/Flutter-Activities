@@ -1,6 +1,6 @@
-import 'package:activity/our_team.dart';
-import 'package:activity/publi_form.dart';
-import 'package:activity/trip_packages.dart';
+import 'package:activity/perfil_1.dart';
+import 'package:activity/perfil_2.dart';
+import 'package:activity/lista_locais.dart';
 import 'package:flutter/material.dart';
 
 class ActivityTabBar extends StatefulWidget {
@@ -13,40 +13,36 @@ class ActivityTabBar extends StatefulWidget {
 class _ActivityTabBarState extends State<ActivityTabBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: DefaultTabController(
-        initialIndex: 0,
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('TabBar Widget'),
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.cloud_outlined),
-                ),
-                Tab(
-                  icon: Icon(Icons.beach_access_sharp),
-                ),
-                Tab(
-                  icon: Icon(Icons.brightness_5_sharp),
-                ),
-              ],
-            ),
-          ),
-          body: const TabBarView(
-            children: <Widget>[
-              Center(
-                child: OurTeam(),
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('TabBar Widget'),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.cloud_outlined),
               ),
-              Center(
-                child: TripPackages(),
+              Tab(
+                icon: Icon(Icons.beach_access_sharp),
               ),
-              Center(
-                child: PubliForm(),
+              Tab(
+                icon: Icon(Icons.brightness_5_sharp),
               ),
             ],
           ),
+        ),
+        body: const TabBarView(
+          children: <Widget>[
+            Center(
+              child: Perfil1(),
+            ),
+            Perfil2(),
+            Center(
+              child: ListaLocais(),
+            ),
+          ],
         ),
       ),
     );
