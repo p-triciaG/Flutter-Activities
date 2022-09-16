@@ -87,7 +87,7 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: Colors.lime),
+      decoration: const BoxDecoration(color: Colors.lightGreen),
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: SizedBox(
         height: 90,
