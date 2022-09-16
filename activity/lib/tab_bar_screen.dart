@@ -15,7 +15,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
   Widget build(BuildContext context) {
     return Container(
       child: DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 3,
         child: Scaffold(
           appBar: AppBar(
