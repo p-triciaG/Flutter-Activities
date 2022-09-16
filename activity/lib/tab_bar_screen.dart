@@ -1,6 +1,6 @@
-import 'package:activity/our_team.dart';
-import 'package:activity/publi_form.dart';
-import 'package:activity/trip_packages.dart';
+import 'package:activity/perfil_1.dart';
+import 'package:activity/perfil_2.dart';
+import 'package:activity/lista_locais.dart';
 import 'package:flutter/material.dart';
 
 class ActivityTabBar extends StatefulWidget {
@@ -14,7 +14,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
@@ -36,11 +36,11 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
         body: const TabBarView(
           children: <Widget>[
             Center(
-              child: OurTeam(),
+              child: Perfil1(),
             ),
-            TripPackages(),
+            Perfil2(),
             Center(
-              child: PubliForm(),
+              child: ListaLocais(),
             ),
           ],
         ),
