@@ -39,9 +39,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
               child: Perfil1(),
             ),
             Perfil2(),
-            Center(
-              child: ListaLocais(),
-            ),
+            ListaLocais(),
           ],
         ),
       ),

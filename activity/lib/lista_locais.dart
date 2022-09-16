@@ -14,9 +14,43 @@ class _ListaLocaisState extends State<ListaLocais> {
     'Parque Nacional Banff',
     'Islas Galápagos'
   ];
+  final TextEditingController _search = TextEditingController();
+
+  Widget renderTextField(BuildContext context, TextEditingController ctrl){
+    return Row(
+      verticalDirection: VerticalDirection.down,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: TextField(
+              controller: ctrl,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder()
+              ),
+            ),
+          ),
+        ),
+        ElevatedButton.icon(
+          onPressed: (){
+            print(ctrl.text);
+          },
+          icon: const Icon(
+            Icons.search,
+          ),
+          label: const Text("")
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> locationList = [];
+    locationList.add(renderTextField(context, _search));
+
     for (var i = 0; i < 3; i += 1) {
       locationList.add(Location(
         titles[i % 3],
@@ -53,7 +87,7 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: Colors.lime),
+      decoration: const BoxDecoration(color: Colors.lightGreen),
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: SizedBox(
         height: 90,
