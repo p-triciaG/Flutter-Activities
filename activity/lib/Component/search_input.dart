@@ -20,6 +20,7 @@ class SearchInput extends StatelessWidget {
               decoration: const InputDecoration(
                 border: OutlineInputBorder()
               ),
+              onSubmitted: (value) => e(),
             ),
           ),
         ),
