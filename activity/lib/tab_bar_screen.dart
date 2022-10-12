@@ -42,6 +42,10 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
             ListaLocais(),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => 1,
+        ),
       ),
     );
   }
