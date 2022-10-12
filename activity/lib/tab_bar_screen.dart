@@ -1,5 +1,5 @@
+import 'package:activity/add_location.dart';
 import 'package:activity/perfil_1.dart';
-import 'package:activity/perfil_2.dart';
 import 'package:activity/lista_locais.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
             Center(
               child: Perfil1(),
             ),
-            Perfil2(),
+            AddLocation(),
             ListaLocais(),
           ],
         ),
