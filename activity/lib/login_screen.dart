@@ -1,3 +1,4 @@
+import 'package:activity/sing_up_screen.dart';
 import 'package:activity/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,10 @@ class _LoginState extends State<Login> {
               children: [
                 Text('Novo por aqui?'),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => SingUp()));
+                    },
                     child: Text(
                       "Criar uma conta",
                       style: TextStyle(color: Colors.lightGreen),

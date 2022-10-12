@@ -47,8 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 "TraveLovers",
                 style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
             )

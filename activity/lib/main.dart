@@ -1,3 +1,4 @@
+import 'package:activity/sing_up_screen.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:activity/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: const SplashScreen(),
+      home: SingUp(),
     );
   }
 }
