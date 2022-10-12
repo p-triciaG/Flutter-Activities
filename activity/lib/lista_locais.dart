@@ -1,4 +1,4 @@
-import 'package:activity/Component/LocaleCard.dart';
+import 'package:activity/Component/locale_card.dart';
 import 'package:activity/Component/search_input.dart';
 import 'package:activity/Model/location.dart';
 import 'package:flutter/material.dart';
