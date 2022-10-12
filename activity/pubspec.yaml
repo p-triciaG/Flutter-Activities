@@ -64,6 +64,7 @@ flutter:
     - image/OIP.jpg
     - image/PBC.jpg
     - image/IGE.jpg
+    - image/travel_lovers_logo.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
