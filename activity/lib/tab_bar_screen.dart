@@ -1,4 +1,4 @@
-import 'package:activity/Model/location.dart';
+import 'package:activity/models/location.dart';
 import 'package:activity/add_location.dart';
 import 'package:activity/edit_perfil.dart';
 import 'package:activity/perfil_1.dart';

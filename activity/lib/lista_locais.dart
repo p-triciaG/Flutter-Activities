@@ -1,6 +1,6 @@
 import 'package:activity/Component/locale_card.dart';
 import 'package:activity/Component/search_input.dart';
-import 'package:activity/Model/location.dart';
+import 'package:activity/models/location.dart';
 import 'package:flutter/material.dart';
 
 class ListaLocais extends StatefulWidget{

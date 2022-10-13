@@ -1,4 +1,4 @@
-import 'package:activity/Model/location.dart';
+import 'package:activity/models/location.dart';
 
 import 'package:flutter/material.dart';
 
