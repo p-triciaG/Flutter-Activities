@@ -35,7 +35,6 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Atividade 2'),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
