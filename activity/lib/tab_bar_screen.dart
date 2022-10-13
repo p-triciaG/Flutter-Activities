@@ -1,6 +1,5 @@
 import 'package:activity/Model/location.dart';
 import 'package:activity/add_location.dart';
-import 'package:activity/add_location_route.dart';
 import 'package:activity/perfil_1.dart';
 import 'package:activity/lista_locais.dart';
 import 'package:flutter/material.dart';
