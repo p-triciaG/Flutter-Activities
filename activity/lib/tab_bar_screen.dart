@@ -1,7 +1,9 @@
 import 'package:activity/Model/location.dart';
 import 'package:activity/add_location.dart';
+import 'package:activity/edit_perfil.dart';
 import 'package:activity/perfil_1.dart';
 import 'package:activity/lista_locais.dart';
+import 'package:activity/perfil_2.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -30,32 +32,33 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Atividade 2'),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
-                icon: Icon(Icons.cloud_outlined),
-              ),
-              Tab(
                 icon: Icon(Icons.beach_access_sharp),
               ),
               Tab(
+                icon: Icon(Icons.account_circle),
+              ),
+              Tab(
                 icon: Icon(Icons.brightness_5_sharp),
+              ),
+              Tab(
+                icon: Icon(Icons.cloud),
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: <Widget>[
-            const Center(
-              child: Perfil1(),
-            ),
-            // AddLocation((Location getNewLocation){ print("batata"); }),
-            Perfil1(),
             ListaLocais(allLocations),
+            EditPerfil(),
+            Perfil1(),
+            Perfil2(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
