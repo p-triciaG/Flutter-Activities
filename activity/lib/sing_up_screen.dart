@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:activity/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'login_screen.dart';
 import 'models/User.dart';
 
 class SingUp extends StatefulWidget {
-  const SingUp({Key? key}) : super(key: key);
+  SingUp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SingUpState createState() => _SingUpState();
@@ -18,6 +22,8 @@ class _SingUpState extends State<SingUp> {
   final TextEditingController _controladorSenha = TextEditingController();
   final TextEditingController _controladorTelefone = TextEditingController();
   final TextEditingController _controladorLocalidade = TextEditingController();
+  // bool _validate = false;
+  //String nome, email, senha, telefone;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +51,14 @@ class _SingUpState extends State<SingUp> {
             ),
             Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: TextFormField(
                       controller: _controladorNome,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Nome',
                           hintText: 'Insira seu nome completo'),
@@ -61,7 +68,7 @@ class _SingUpState extends State<SingUp> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
                       controller: _controladorEmail,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Email',
                           hintText: 'Insira Seu melhor email'),
@@ -72,7 +79,7 @@ class _SingUpState extends State<SingUp> {
                         horizontal: 20, vertical: 20),
                     child: TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Senha',
                           hintText: 'Insira uma senha segura'),
@@ -82,7 +89,7 @@ class _SingUpState extends State<SingUp> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Confirmar senha',
                           hintText: 'As senhas devem ser identicas'),
@@ -93,7 +100,7 @@ class _SingUpState extends State<SingUp> {
                         horizontal: 20, vertical: 20),
                     child: TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Telefone',
                           hintText: '(00)00000-0000'),
@@ -109,22 +116,7 @@ class _SingUpState extends State<SingUp> {
                           color: Colors.lightGreen,
                           borderRadius: BorderRadius.circular(20)),
                       child: ElevatedButton(
-                        onPressed: () {
-                          final String nome = _controladorNome.text;
-                          final String email = _controladorEmail.text;
-                          final String senha = _controladorSenha.text;
-                          final String telefone = _controladorTelefone.text;
-                          final String localidade = _controladorLocalidade.text;
-
-                          final User usuario =
-                              User(nome, email, senha, telefone, localidade);
-                          print(usuario);
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => ActivityTabBar()));
-                        },
+                        onPressed: () => _submit(),
                         child: Text(
                           'Cadastrar',
                           style: TextStyle(color: Colors.white, fontSize: 25),
@@ -155,5 +147,20 @@ class _SingUpState extends State<SingUp> {
         ),
       ),
     );
+  }
+
+  _submit() {
+    final isValid = _formKey.currentState?.validate();
+    if (!isValid!) {
+      return ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: const Text('Preencha os campos adequadamente')));
+    }
+    _formKey.currentState?.save();
+    setState(() {
+      Timer(
+          Duration(seconds: 5),
+          () => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => ActivityTabBar())));
+    });
   }
 }

@@ -4,6 +4,8 @@ import 'package:activity/lista_locais.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'models/User.dart';
+
 class ActivityTabBar extends StatefulWidget {
   const ActivityTabBar({Key? key}) : super(key: key);
 

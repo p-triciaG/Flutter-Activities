@@ -1,9 +1,7 @@
 import 'dart:async';
-
+import 'package:activity/sing_up_screen.dart';
 import 'package:activity/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -21,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 5),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login())));
+            context, MaterialPageRoute(builder: (context) => SingUp())));
   }
 
   @override
