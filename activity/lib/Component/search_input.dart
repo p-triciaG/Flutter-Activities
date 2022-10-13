@@ -7,31 +7,20 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      verticalDirection: VerticalDirection.down,
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: TextField(
-              controller: ctrl,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder()
-              ),
-              onSubmitted: (value) => e(),
-            ),
-          ),
+    return TextFormField(
+      controller: ctrl,
+      onChanged: (value) => e(),
+      decoration: InputDecoration(
+        hintText: "Pesquise por título ou conteúdo",
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            ctrl.clear();
+            e();
+          },
         ),
-        ElevatedButton.icon(
-          onPressed: () => e(),
-          icon: const Icon(
-            Icons.search,
-          ),
-          label: const Text("")
-        ),
-      ],
+      ),
     );
   }
 }
