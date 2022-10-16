@@ -1,3 +1,4 @@
+import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/models/location.dart';
 import 'package:activity/add_location.dart';
 import 'package:activity/edit_perfil.dart';
@@ -6,6 +7,7 @@ import 'package:activity/lista_locais.dart';
 import 'package:activity/perfil_2.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'models/User.dart';
 
@@ -33,37 +35,42 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
     return DefaultTabController(
       initialIndex: 0,
       length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.beach_access_sharp),
-              ),
-              Tab(
-                icon: Icon(Icons.account_circle),
-              ),
-              Tab(
-                icon: Icon(Icons.brightness_5_sharp),
-              ),
-              Tab(
-                icon: Icon(Icons.cloud),
-              ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ManageLocationBloc(LocationState(allLocations)))
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: <Widget>[
+                Tab(
+                  icon: Icon(Icons.beach_access_sharp),
+                ),
+                Tab(
+                  icon: Icon(Icons.account_circle),
+                ),
+                Tab(
+                  icon: Icon(Icons.brightness_5_sharp),
+                ),
+                Tab(
+                  icon: Icon(Icons.cloud),
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              ListaLocais(),
+              EditPerfil(),
+              Perfil1(),
+              Perfil2(),
             ],
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            ListaLocais(allLocations),
-            EditPerfil(),
-            Perfil1(),
-            Perfil2(),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddLocation(addLocation))),
-        ),
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddLocation(addLocation))),
+          ),
+        )
       ),
     );
   }
