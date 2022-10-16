@@ -1,6 +1,6 @@
 import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/models/location.dart';
-import 'package:activity/add_location.dart';
+import 'package:activity/screens/add_location.dart';
 import 'package:activity/edit_perfil.dart';
 import 'package:activity/perfil_1.dart';
 import 'package:activity/lista_locais.dart';
