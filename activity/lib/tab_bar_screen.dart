@@ -3,7 +3,7 @@ import 'package:activity/models/location.dart';
 import 'package:activity/screens/add_location.dart';
 import 'package:activity/edit_perfil.dart';
 import 'package:activity/perfil_1.dart';
-import 'package:activity/lista_locais.dart';
+import 'package:activity/screens/lista_locais.dart';
 import 'package:activity/perfil_2.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
