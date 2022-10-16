@@ -25,11 +25,6 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
     Location(title: 'Islas Galápagos', description: 'Lugar bacana', imagePath: 'image/IGE.jpg'),
   ];
 
-  // addLocation(Location getNewLocation){
-  //   allLocations.add(getNewLocation);
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
