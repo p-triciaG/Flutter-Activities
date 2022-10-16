@@ -1,22 +1,20 @@
+import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/models/location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
 class AddLocation extends StatefulWidget {
-  Function(Location) getNewLocation;
-  AddLocation(this.getNewLocation, {Key? key}) : super(key: key);
+  const AddLocation({Key? key}) : super(key: key);
 
   @override
-  State<AddLocation> createState() => _AddLocationState(getNewLocation);
+  State<AddLocation> createState() => _AddLocationState();
 }
 
 class _AddLocationState extends State<AddLocation> {
   Location newLocation = Location(imagePath: 'image/OIP.jpg');
-  Function(Location) getNewLocation;
-
-  _AddLocationState(this.getNewLocation);
 
   renderImage(String assetName){
     return ListTile(
@@ -90,7 +88,8 @@ class _AddLocationState extends State<AddLocation> {
               child: const Text("Criar publicação",
                 style: TextStyle( fontSize: 16, )),
               onPressed: () {
-                getNewLocation(newLocation);
+                ManageLocationBloc crLocation = BlocProvider.of<ManageLocationBloc>(context);
+                crLocation.add(AddLocationEvent(newLocation));
                 Navigator.pop(context);
               },
             ),

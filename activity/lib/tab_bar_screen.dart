@@ -25,53 +25,48 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
     Location(title: 'Islas Galápagos', description: 'Lugar bacana', imagePath: 'image/IGE.jpg'),
   ];
 
-  addLocation(Location getNewLocation){
-    allLocations.add(getNewLocation);
-    setState(() {});
-  }
+  // addLocation(Location getNewLocation){
+  //   allLocations.add(getNewLocation);
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
       length: 4,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => ManageLocationBloc(LocationState(allLocations)))
-        ],
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.beach_access_sharp),
-                ),
-                Tab(
-                  icon: Icon(Icons.account_circle),
-                ),
-                Tab(
-                  icon: Icon(Icons.brightness_5_sharp),
-                ),
-                Tab(
-                  icon: Icon(Icons.cloud),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              ListaLocais(),
-              EditPerfil(),
-              Perfil1(),
-              Perfil2(),
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.beach_access_sharp),
+              ),
+              Tab(
+                icon: Icon(Icons.account_circle),
+              ),
+              Tab(
+                icon: Icon(Icons.brightness_5_sharp),
+              ),
+              Tab(
+                icon: Icon(Icons.cloud),
+              ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddLocation(addLocation))),
-          ),
-        )
-      ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            ListaLocais(),
+            EditPerfil(),
+            Perfil1(),
+            Perfil2(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddLocation())),
+        ),
+      )
     );
   }
 }
