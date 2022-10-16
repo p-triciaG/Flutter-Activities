@@ -1,8 +1,6 @@
 import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/models/location.dart';
-import 'package:activity/sing_up_screen.dart';
 import 'package:activity/splash_screen.dart';
-import 'package:activity/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
