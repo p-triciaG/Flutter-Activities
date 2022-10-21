@@ -1,9 +1,9 @@
 class User {
-  String nome;
-  String email;
-  String senha;
-  String telefone;
-  String localidade;
+  late String nome;
+  late String email;
+  late String senha;
+  late String telefone;
+  late String localidade;
 
   get getNome => this.nome;
 
@@ -26,6 +26,31 @@ class User {
   set setLocal(local) => this.localidade = local;
 
   User(this.nome, this.email, this.senha, this.telefone, this.localidade);
+
+  User.sign(){
+    nome = "";
+    email = "";
+    senha = "";
+    telefone = "";
+    localidade = "";
+  }
+
+  User.fromMap(map){
+    nome = map["name"];
+    email = map["email"];
+    senha = map["password"];
+    telefone = map["phone"];
+    localidade = "";
+  }
+
+  toMap(){
+    var map = <String, dynamic>{};
+    map["name"] = nome;
+    map["email"] = email;
+    map["password"] = senha;
+    map["phone"] = telefone;
+    return map;
+  }
 
   @override
   String toString() {

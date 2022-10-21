@@ -1,4 +1,5 @@
 import 'package:activity/login_screen.dart';
+import 'package:activity/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -13,6 +14,7 @@ class AccountForms extends StatelessWidget {
   String screenTitle;
   Function _submit;
   bool showLogin;
+  User user = User.sign();
 
   AccountForms(this.screenTitle, this._formKey, this._submit, { this.showLogin = true, Key? key}) : super(key: key);
 
@@ -51,6 +53,15 @@ class AccountForms extends StatelessWidget {
                         border: OutlineInputBorder(),
                         labelText: 'Nome',
                         hintText: 'Insira seu nome completo'),
+                    validator: (value) {
+                      if (value!.isEmpty){
+                        return "Adicione um nome válido";
+                      }
+                      return null;
+                    },
+                    onSaved: ((newValue) {
+                      user.nome = newValue!;
+                    }),
                   ),
                 ),
                 Padding(
@@ -61,6 +72,15 @@ class AccountForms extends StatelessWidget {
                         border: OutlineInputBorder(),
                         labelText: 'Email',
                         hintText: 'Insira Seu melhor email'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Adicione um email válido";
+                      }
+                      return null;
+                    },
+                    onSaved: ((newValue) {
+                      user.email = newValue!;
+                    }),
                   ),
                 ),
                 Padding(
@@ -72,6 +92,13 @@ class AccountForms extends StatelessWidget {
                         border: OutlineInputBorder(),
                         labelText: 'Senha',
                         hintText: 'Insira uma senha segura'),
+                    validator: ((value) {
+                      if (value!.isEmpty){
+                        return "Senha não pode ser vazia";
+                      }
+                      return null;
+                    }),
+                    onSaved: (newValue) => user.senha = newValue!,
                   ),
                 ),
                 Padding(
@@ -82,6 +109,12 @@ class AccountForms extends StatelessWidget {
                         border: OutlineInputBorder(),
                         labelText: 'Confirmar senha',
                         hintText: 'As senhas devem ser identicas'),
+                    validator: ((value) {
+                      if (value!.isEmpty) {
+                        return "Confirme sua senha";
+                      }
+                      return null;
+                    }),
                   ),
                 ),
                 Padding(
@@ -94,6 +127,13 @@ class AccountForms extends StatelessWidget {
                         labelText: 'Telefone',
                         hintText: '(00)00000-0000'),
                     keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value!.isEmpty){
+                        return "Digite um telefone";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) => user.telefone = newValue!,
                   ),
                 ),
                 Padding(
@@ -105,7 +145,7 @@ class AccountForms extends StatelessWidget {
                         color: Colors.lightGreen,
                         borderRadius: BorderRadius.circular(20)),
                     child: ElevatedButton(
-                      onPressed: () => _submit(),
+                      onPressed: () => _submit(user),
                       child: Text(
                         (showLogin)?'Cadastrar': 'Confirmar',
                         style: TextStyle(color: Colors.white, fontSize: 25),

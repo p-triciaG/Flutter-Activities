@@ -1,4 +1,5 @@
 import 'package:activity/bloc/manage_location.dart';
+import 'package:activity/bloc/manage_user.dart';
 import 'package:activity/models/location.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider (
       providers: [
-        BlocProvider(create: (_) => ManageLocationBloc(LocationState(allLocations)))
+        BlocProvider(create: (_) => ManageLocationBloc(LocationState(allLocations))),
+        BlocProvider(create: (_) => ManageUserBloc(UserState()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
