@@ -1,22 +1,19 @@
 import 'package:activity/login_screen.dart';
 import 'package:activity/models/User.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/container.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 
 class AccountForms extends StatelessWidget {
-  final _formKey;
-  final TextEditingController _controladorNome = TextEditingController();
-  final TextEditingController _controladorEmail = TextEditingController();
-  final TextEditingController _controladorSenha = TextEditingController();
-  final TextEditingController _controladorTelefone = TextEditingController();
-  final TextEditingController _controladorLocalidade = TextEditingController();
-  String screenTitle;
-  Function _submit;
-  bool showLogin;
-  User user = User.sign();
+  final dynamic _formKey;
+  final String screenTitle;
+  final Function _submit;
+  final bool showLogin;
+  User? user;
 
-  AccountForms(this.screenTitle, this._formKey, this._submit, { this.showLogin = true, Key? key}) : super(key: key);
+  AccountForms(this.screenTitle, this._formKey, this._submit, { this.showLogin = true, this.user, Key? key}) : super(key: key){
+    user ??= User.sign();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +26,10 @@ class AccountForms extends StatelessWidget {
             padding: const EdgeInsets.only(top: 60.0),
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Text(
-                  this.screenTitle,
-                  style: TextStyle(
+                  screenTitle,
+                  style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
                       color: Colors.lightGreen),
@@ -46,9 +43,9 @@ class AccountForms extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: TextFormField(
-                    controller: _controladorNome,
+                    initialValue: (user!.getNome.isNotEmpty) ? user!.getNome : null,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Nome',
@@ -60,14 +57,14 @@ class AccountForms extends StatelessWidget {
                       return null;
                     },
                     onSaved: ((newValue) {
-                      user.nome = newValue!;
+                      user!.nome = newValue!;
                     }),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
-                    controller: _controladorEmail,
+                    initialValue: (user!.getEmail.isNotEmpty) ? user!.getEmail : null,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
@@ -79,7 +76,7 @@ class AccountForms extends StatelessWidget {
                       return null;
                     },
                     onSaved: ((newValue) {
-                      user.email = newValue!;
+                      user!.email = newValue!;
                     }),
                   ),
                 ),
@@ -87,6 +84,7 @@ class AccountForms extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20, vertical: 20),
                   child: TextFormField(
+                    initialValue: (user!.getSenha.isNotEmpty) ? user!.getSenha : null,
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -98,12 +96,13 @@ class AccountForms extends StatelessWidget {
                       }
                       return null;
                     }),
-                    onSaved: (newValue) => user.senha = newValue!,
+                    onSaved: (newValue) => user!.senha = newValue!,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
+                    initialValue: (user!.getSenha.isNotEmpty) ? user!.getSenha : null,
                     obscureText: true,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -121,7 +120,7 @@ class AccountForms extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20, vertical: 20),
                   child: TextFormField(
-                    obscureText: true,
+                    initialValue: (user!.getTelefone.isNotEmpty) ? user!.getTelefone : null,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Telefone',
@@ -133,7 +132,7 @@ class AccountForms extends StatelessWidget {
                       }
                       return null;
                     },
-                    onSaved: (newValue) => user.telefone = newValue!,
+                    onSaved: (newValue) => user!.telefone = newValue!,
                   ),
                 ),
                 Padding(
@@ -148,7 +147,7 @@ class AccountForms extends StatelessWidget {
                       onPressed: () => _submit(user),
                       child: Text(
                         (showLogin)?'Cadastrar': 'Confirmar',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        style: const TextStyle(color: Colors.white, fontSize: 25),
                       ),
                     ),
                   ),
@@ -157,13 +156,13 @@ class AccountForms extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Já possui uma conta?'),
+                    const Text('Já possui uma conta?'),
                     TextButton(
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Login()));
                         },
-                        child: Text(
+                        child: const Text(
                           "Entrar",
                           style: TextStyle(color: Colors.lightGreen),
                         ))
