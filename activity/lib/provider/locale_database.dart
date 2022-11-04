@@ -96,9 +96,16 @@ class LocalDatabase {
 
   Future<int> insertLocale(Location locale) async {
     Database? db = await database;
-    print("veriifcar");
     int result = await db.insert(localeTable, locale.toMap());
-    notify(result.toString(), locale);
+    locale.id = result;
+    notify(result, locale);
+    return result;
+  }
+
+  Future<int> deleteLocale(int id) async {
+    Database? db = await database;
+    int result = await db.delete(localeTable, where: "$colId = ?", whereArgs: [id]);
+    notify(id, null);
     return result;
   }
   
@@ -120,7 +127,7 @@ class LocalDatabase {
   /*
      Parte da STREAM
   */
-  notify(String localeId, Location locale) async {
+  notify(int localeId, Location? locale) async {
     _controller?.sink.add([localeId, locale]);
   }
 

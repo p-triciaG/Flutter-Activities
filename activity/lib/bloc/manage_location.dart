@@ -21,6 +21,11 @@ class UpdateList extends LocationEvent{
   UpdateList(this.list);
 }
 
+class DeleteLocationEvent extends LocationEvent{
+  int id;
+  DeleteLocationEvent(this.id);
+}
+
 class LocationState{
   List<Location> list;
   LocationState(this.list);
@@ -30,14 +35,26 @@ class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
   List<Location> list = [];
   ManageLocationBloc():super(LocationState([])){
     LocalDatabase.helper.stream.listen((event) {
-      print(event[0]);
-      list.add(event[1]);
-      
+      if (event[1] == null) {
+        try {
+          list.removeWhere((element) => element.id == event[0]);
+        } on Exception catch (err) {
+          print(err.toString());
+        }
+      } else {
+       list.add(event[1]);
+      }
       add(UpdateList(list));
     });
 
     on<AddLocationEvent>((event, emit) async {
       await LocalDatabase.helper.insertLocale(event.item);
+    });
+
+    on<DeleteLocationEvent>((event, emit) async {
+      if (!event.id.isNaN){
+        await LocalDatabase.helper.deleteLocale(event.id);
+      }
     });
     
     on<FilterLocationEvent>((event, emit) {
@@ -52,6 +69,7 @@ class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
       list = await LocalDatabase.helper.getLocales();
       emit(LocationState(list));
     });
+
     on<UpdateList>((event, emit) async {
       emit(LocationState(event.list));
     });

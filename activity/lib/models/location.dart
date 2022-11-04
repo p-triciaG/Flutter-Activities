@@ -1,4 +1,5 @@
 class Location{
+  int? id;
   String title = '';
   String subject = '';
   String description = '';
@@ -13,6 +14,7 @@ class Location{
     if (imagePath != null) this.imagePath = imagePath;
   }
   Location.fromMap(map){
+    id = map["id"];
     title = map["title"];
     subject = map["subject"];
     address = map["address"];
