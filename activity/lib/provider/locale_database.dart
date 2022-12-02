@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:activity/models/User.dart';
+import 'package:activity/models/location.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,6 +28,14 @@ class LocalDatabase {
   String colPwd = "password";
   String colTel = "phone";
 
+  String localeTable = "locale";
+  String colTitle = "title";
+  String colSubject = "subject";
+  String colDescription = "description";
+  String colAddress = "address";
+  String colImage = "image";
+
+
   Future<Database> get database async {
     _database ??= await initializeDatabase();
     return _database!;
@@ -36,11 +45,11 @@ class LocalDatabase {
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = "${directory.path}travelover.db";
-    return openDatabase(path, version: 1, onCreate: _createDb);
+    return openDatabase(path, version: 2, onCreate: _createDb);
   }
 
-  _createDb(Database db, int newVersion) {
-    db.execute("""
+  _createDb(Database db, int newVersion) async {
+    await db.execute('''
        CREATE TABLE $userTable (
            $colId INTEGER PRIMARY KEY AUTOINCREMENT,
            $colEmail TEXT,
@@ -48,7 +57,17 @@ class LocalDatabase {
            $colPwd TEXT,
            $colTel TEXT
           );
-    """);
+    ''');
+    await db.execute('''
+       CREATE TABLE $localeTable (
+           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
+           $colTitle TEXT,
+           $colSubject TEXT,
+           $colDescription TEXT,
+           $colAddress TEXT,
+           $colImage BLOB
+          );
+    ''');
   }
 
   Future<int> insertUser(User user) async {
@@ -75,13 +94,41 @@ class LocalDatabase {
     return userList[0];
   }
 
-  /*  */
+  Future<int> insertLocale(Location locale) async {
+    Database? db = await database;
+    int result = await db.insert(localeTable, locale.toMap());
+    locale.id = result;
+    notify(result, locale);
+    return result;
+  }
+
+  Future<int> deleteLocale(int id) async {
+    Database? db = await database;
+    int result = await db.delete(localeTable, where: "$colId = ?", whereArgs: [id]);
+    notify(id, null);
+    return result;
+  }
+  
+  Future<List<Location>> getLocales() async {
+    Database db = await database;
+
+    List<Map<String, Object?>> localeList =
+        await db.rawQuery("SELECT * FROM $localeTable;");
+
+    List<Location> list = [];
+    for (int i = 0; i < localeList.length; i++) {
+      Location locale = Location.fromMap(localeList[i]);
+
+      list.add(locale);
+    }
+    return list;
+  }
 
   /*
      Parte da STREAM
   */
-  notify(String userId, User? user) async {
-    _controller?.sink.add([userId, user]);
+  notify(int localeId, Location? locale) async {
+    _controller?.sink.add([localeId, locale]);
   }
 
   Stream get stream {
