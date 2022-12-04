@@ -22,15 +22,18 @@ class EditPerfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageUserBloc, UserState>(
-      builder: (context, state) {
-        UserModel? user;
-        if (state is UserFound) {
-          user = state.user;
-          uid = state.id;
+    return Scaffold(
+      appBar: AppBar( title: const Text("Configurações") ),
+      body: BlocBuilder<ManageUserBloc, UserState>(
+        builder: (context, state) {
+          UserModel? user;
+          if (state is UserFound) {
+            user = state.user;
+            uid = state.id;
+          }
+          return AccountForms("Editar perfil", _formKey, (user) => _update(user, context), showLogin: false, user: user,);
         }
-        return AccountForms("Editar perfil", _formKey, (user) => _update(user, context), showLogin: false, user: user,);
-      }
+      ),
     );
   }
 }

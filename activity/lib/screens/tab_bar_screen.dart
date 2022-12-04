@@ -31,6 +31,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
           initialIndex: 0,
           length: 4,
           child: Scaffold(
+
             drawer: Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -38,7 +39,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
                   const DrawerHeader(
                     decoration: BoxDecoration(color: Colors.lightGreen),
                     child: Text(
-                      "NavigationDrawer App",
+                      "Travelovers",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     )
                   ),
@@ -46,9 +47,9 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
                     leading: const Icon(Icons.settings),
                     title: const Text("Configurações"),
                     onTap: () {
-                      // Navigator.pop(context);
+                      Navigator.pop(context);
 
-                      // Navigator.pushNamed(context, "/add");
+                      Navigator.pushNamed(context, "/settings");
                     }
                   ),
                   ListTile(
@@ -63,32 +64,33 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
                 ],
               ),
             ),
-            appBar: AppBar(
-              bottom: const TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    icon: Icon(Icons.beach_access_sharp),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.account_circle),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.brightness_5_sharp),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.cloud),
-                  ),
-                ],
-              ),
+            appBar: AppBar(title: const Text("Publicações")
+              // bottom: const TabBar(
+              //   tabs: <Widget>[
+              //     Tab(
+              //       icon: Icon(Icons.beach_access_sharp),
+              //     ),
+              //     Tab(
+              //       icon: Icon(Icons.account_circle),
+              //     ),
+              //     Tab(
+              //       icon: Icon(Icons.brightness_5_sharp),
+              //     ),
+              //     Tab(
+              //       icon: Icon(Icons.cloud),
+              //     ),
+              //   ],
+              // ),
             ),
-            body: TabBarView(
-              children: <Widget>[
+            body:
+            // TabBarView(
+            //   children: <Widget>[
                 ListaLocais(),
-                EditPerfil(),
-                Perfil1(),
-                Perfil2(),
-              ],
-            ),
+              //   EditPerfil(),
+              //   Perfil1(),
+              //   Perfil2(),
+            //   ],
+            // ),
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () => Navigator.pushNamed(context, '/addLocation'),
