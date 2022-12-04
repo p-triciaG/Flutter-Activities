@@ -1,5 +1,6 @@
 
 import 'package:activity/screens/add_location.dart';
+import 'package:activity/screens/edit_perfil.dart';
 import 'package:activity/screens/login_screen.dart';
 import 'package:activity/screens/sing_up_screen.dart';
 import 'package:activity/screens/splash_screen.dart';
@@ -32,6 +33,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
           value: _userBloc,
           child: SingUp(),
+        ));
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => BlocProvider.value(
+          value: _userBloc,
+          child: EditPerfil(),
         ));
       case '/addLocation':
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
