@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class UserEvent {
-  UserModel user;
+  UserModel? user;
   UserEvent(this.user);
 }
 
@@ -19,7 +19,9 @@ class UpdateUserEvent extends UserEvent{
 }
 
 class SignInEvent extends UserEvent{
-  SignInEvent(UserModel user):super(user);
+  String email;
+  String senha;
+  SignInEvent(this.email, this.senha,{UserModel? user}):super(user);
 }
 
 class UserState{}
@@ -40,7 +42,7 @@ class ManageUserBloc extends Bloc<UserEvent, UserState>{
 
   ManageUserBloc(UserState init):super(init){
     on<SignInEvent>((event, emit) async {
-      User? userMap = await fb_auth.signInWithEmailAndPassword(event.user);
+      User? userMap = await fb_auth.signInWithEmailAndPassword(event.email, event.senha);
 
       if (userMap==null) {
         emit(UserNotFound());
@@ -50,18 +52,20 @@ class ManageUserBloc extends Bloc<UserEvent, UserState>{
       }
     });
     on<SignUpEvent>((event, emit) async {
-      User? userMap = await fb_auth.createUserWithEmailAndPassword(event.user.email, event.user.senha);
+      User? userMap = await fb_auth.createUserWithEmailAndPassword(event.user!.email, event.user!.senha);
 
       if (userMap==null) {
+        print('user error');
         emit(UserError());
       } else {
-        await FirestoreDatabase.helper.setUser(userMap.uid, event.user);
+        await FirestoreDatabase.helper.setUser(userMap.uid, event.user!);
+        print('entrou');
         emit(UserState());
       }
     });
     on<UpdateUserEvent>(((event, emit) async {
-      await FirestoreDatabase.helper.setUser(event.id, event.user);
-      emit(UserFound(event.id, event.user));
+      await FirestoreDatabase.helper.setUser(event.id, event.user!);
+      emit(UserFound(event.id, event.user!));
     }));
   }
 }

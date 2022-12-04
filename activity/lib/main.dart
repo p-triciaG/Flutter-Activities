@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider (
       providers: [
         BlocProvider(create: (_) => ManageLocationBloc()),
-        // BlocProvider(create: (_) => ManageUserBloc(UserState()))
+        BlocProvider(create: (_) => ManageUserBloc(UserState()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

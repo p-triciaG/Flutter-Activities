@@ -39,7 +39,7 @@ class AccountForms extends StatelessWidget {
           ),
           Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserModelInteraction,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
                 Padding(

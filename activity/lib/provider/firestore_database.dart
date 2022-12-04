@@ -49,14 +49,8 @@ class FirestoreDatabase {
     return UserModel.fromMap(doc);
   }
 
-  // Future<String> setUser(String uid, UserModel user) async {
-  //   await userCollection.doc(uid).set(user);
-
-  //   return ref.id;
-  // }
-
   Future<int> setUser(String id, UserModel user) async {
-    await userCollection.doc(id).set(user);
+    await userCollection.doc(id).set(user.toMap());
 
     return 0;
   }
