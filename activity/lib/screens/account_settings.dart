@@ -1,4 +1,3 @@
-import 'package:activity/screens/login_screen.dart';
 import 'package:activity/models/UserModel.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ class AccountForms extends StatelessWidget {
   final Function _submit;
   final bool showLogin;
   UserModel? user;
+  String senha = '';
 
   AccountForms(this.screenTitle, this._formKey, this._submit, { this.showLogin = true, this.user, Key? key}) : super(key: key){
     user ??= UserModel.sign();
@@ -63,6 +63,7 @@ class AccountForms extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     initialValue: (user!.getEmail.isNotEmpty) ? user!.getEmail : null,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
@@ -92,8 +93,12 @@ class AccountForms extends StatelessWidget {
                       if (value!.isEmpty){
                         return "Senha não pode ser vazia";
                       }
+                      else if (value.length < 6){
+                        return "Mínimo 6 caracteres";
+                      }
                       return null;
                     }),
+                    onChanged: (value) => senha = value,
                     onSaved: (newValue) => user!.senha = newValue!,
                   ),
                 ),
@@ -109,6 +114,8 @@ class AccountForms extends StatelessWidget {
                     validator: ((value) {
                       if (value!.isEmpty) {
                         return "Confirme sua senha";
+                      } else if(value != senha) {
+                        return "Senhas estão diferentes";
                       }
                       return null;
                     }),
@@ -119,11 +126,11 @@ class AccountForms extends StatelessWidget {
                       horizontal: 20, vertical: 20),
                   child: TextFormField(
                     initialValue: (user!.getTelefone.isNotEmpty) ? user!.getTelefone : null,
+                    keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Telefone',
                         hintText: '(00)00000-0000'),
-                    keyboardType: TextInputType.phone,
                     validator: (value) {
                       if (value!.isEmpty){
                         return "Digite um telefone";

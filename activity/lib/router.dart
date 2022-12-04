@@ -1,4 +1,5 @@
 
+import 'package:activity/screens/add_location.dart';
 import 'package:activity/screens/login_screen.dart';
 import 'package:activity/screens/sing_up_screen.dart';
 import 'package:activity/screens/splash_screen.dart';
@@ -31,6 +32,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
           value: _userBloc,
           child: SingUp(),
+        ));
+      case '/addLocation':
+        return MaterialPageRoute(builder: (_) => BlocProvider.value(
+          value: _locationBloc,
+          child: const AddLocation(),
         ));
       default:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
