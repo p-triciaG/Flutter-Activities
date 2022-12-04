@@ -1,11 +1,6 @@
 import 'package:activity/bloc/manage_user.dart';
 import 'package:flutter/material.dart';
-import 'package:activity/models/location.dart';
-import 'package:activity/screens/add_location.dart';
-import 'package:activity/screens/edit_perfil.dart';
-import 'package:activity/screens/perfil_1.dart';
 import 'package:activity/screens/lista_locais.dart';
-import 'package:activity/screens/perfil_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActivityTabBar extends StatefulWidget {
@@ -64,33 +59,8 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
                 ],
               ),
             ),
-            appBar: AppBar(title: const Text("Publicações")
-              // bottom: const TabBar(
-              //   tabs: <Widget>[
-              //     Tab(
-              //       icon: Icon(Icons.beach_access_sharp),
-              //     ),
-              //     Tab(
-              //       icon: Icon(Icons.account_circle),
-              //     ),
-              //     Tab(
-              //       icon: Icon(Icons.brightness_5_sharp),
-              //     ),
-              //     Tab(
-              //       icon: Icon(Icons.cloud),
-              //     ),
-              //   ],
-              // ),
-            ),
-            body:
-            // TabBarView(
-            //   children: <Widget>[
-                ListaLocais(),
-              //   EditPerfil(),
-              //   Perfil1(),
-              //   Perfil2(),
-            //   ],
-            // ),
+            appBar: AppBar(title: const Text("Publicações")),
+            body: ListaLocais(),
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () => Navigator.pushNamed(context, '/addLocation'),
