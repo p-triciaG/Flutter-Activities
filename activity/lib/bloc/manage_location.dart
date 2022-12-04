@@ -1,5 +1,5 @@
 import 'package:activity/models/location.dart';
-import 'package:activity/provider/locale_database.dart';
+import 'package:activity/provider/firestore_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class LocationEvent {}
@@ -34,26 +34,18 @@ class LocationState{
 class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
   List<Location> list = [];
   ManageLocationBloc():super(LocationState([])){
-    LocalDatabase.helper.stream.listen((event) {
-      if (event[1] == null) {
-        try {
-          list.removeWhere((element) => element.id == event[0]);
-        } on Exception catch (err) {
-          print(err.toString());
-        }
-      } else {
-       list.add(event[1]);
-      }
+    FirestoreDatabase.helper.stream.listen((event) {
+      list = event;
       add(UpdateList(list));
     });
 
     on<AddLocationEvent>((event, emit) async {
-      await LocalDatabase.helper.insertLocale(event.item);
+      await FirestoreDatabase.helper.insertLocale(event.item);
     });
 
     on<DeleteLocationEvent>((event, emit) async {
       if (!event.id.isNaN){
-        await LocalDatabase.helper.deleteLocale(event.id);
+        await FirestoreDatabase.helper.deleteLocale(event.id);
       }
     });
     
@@ -66,7 +58,7 @@ class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
     });
 
     on<AskNewList>((event, emit) async {
-      list = await LocalDatabase.helper.getLocales();
+      list = await FirestoreDatabase.helper.getLocales();
       emit(LocationState(list));
     });
 
