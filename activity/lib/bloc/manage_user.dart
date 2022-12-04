@@ -24,6 +24,8 @@ class SignInEvent extends UserEvent{
   SignInEvent(this.email, this.senha,{UserModel? user}):super(user);
 }
 
+class LogoutEvent extends UserEvent { LogoutEvent({UserModel? user}):super(user); }
+
 class UserState{}
 
 class UserNotFound extends UserState{}
@@ -76,5 +78,9 @@ class ManageUserBloc extends Bloc<UserEvent, UserState>{
       await FirestoreDatabase.helper.setUser(event.id, event.user!);
       emit(UserFound(event.id, event.user!));
     }));
+    on<LogoutEvent>((event, emit) async {
+      await fb_auth.signOut();
+      emit(UserState());
+    });
   }
 }

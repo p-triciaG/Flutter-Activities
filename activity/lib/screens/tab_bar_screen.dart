@@ -1,3 +1,4 @@
+import 'package:activity/bloc/manage_user.dart';
 import 'package:flutter/material.dart';
 import 'package:activity/models/location.dart';
 import 'package:activity/screens/add_location.dart';
@@ -5,6 +6,7 @@ import 'package:activity/screens/edit_perfil.dart';
 import 'package:activity/screens/perfil_1.dart';
 import 'package:activity/screens/lista_locais.dart';
 import 'package:activity/screens/perfil_2.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActivityTabBar extends StatefulWidget {
   const ActivityTabBar({Key? key}) : super(key: key);
@@ -14,49 +16,86 @@ class ActivityTabBar extends StatefulWidget {
 }
 
 class _ActivityTabBarState extends State<ActivityTabBar> {
-  List<Location> allLocations = [
-    Location(title: 'Parque Nacional dos Lagos de Plitvice', subject: 'Lugar bacana', imagePath: 'image/OIP.jpg'),
-    Location(title: 'Parque Nacional Banff', description: 'Lugar bacana', imagePath: 'image/PBC.jpg'),
-    Location(title: 'Islas Galápagos', description: 'Lugar bacana', imagePath: 'image/IGE.jpg'),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.beach_access_sharp),
+    return BlocConsumer<ManageUserBloc, UserState>(
+      listener: (context, state) {
+        if (state is! UserFound) {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/login');
+        }
+      },
+      builder: (context, state) {
+        return DefaultTabController(
+          initialIndex: 0,
+          length: 4,
+          child: Scaffold(
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.lightGreen),
+                    child: Text(
+                      "NavigationDrawer App",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    )
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text("Configurações"),
+                    onTap: () {
+                      // Navigator.pop(context);
+
+                      // Navigator.pushNamed(context, "/add");
+                    }
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.exit_to_app),
+                    title: const Text("Sair"),
+                    onTap: () {
+                      Navigator.pop(context);
+                      
+                      BlocProvider.of<ManageUserBloc>(context).add(LogoutEvent());
+                    }
+                  ),
+                ],
               ),
-              Tab(
-                icon: Icon(Icons.account_circle),
+            ),
+            appBar: AppBar(
+              bottom: const TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    icon: Icon(Icons.beach_access_sharp),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.account_circle),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.brightness_5_sharp),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.cloud),
+                  ),
+                ],
               ),
-              Tab(
-                icon: Icon(Icons.brightness_5_sharp),
-              ),
-              Tab(
-                icon: Icon(Icons.cloud),
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            ListaLocais(),
-            EditPerfil(),
-            Perfil1(),
-            Perfil2(),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => Navigator.pushNamed(context, '/addLocation'),
-        ),
-      )
+            ),
+            body: TabBarView(
+              children: <Widget>[
+                ListaLocais(),
+                EditPerfil(),
+                Perfil1(),
+                Perfil2(),
+              ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => Navigator.pushNamed(context, '/addLocation'),
+            ),
+          )
+        );
+      }
     );
   }
 }
