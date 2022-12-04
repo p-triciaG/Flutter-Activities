@@ -34,7 +34,11 @@ class UserFound extends UserState{
   UserFound(this.id, this.user);
 }
 
-class UserError extends UserState{}
+class UserError extends UserState{
+  String error;
+
+  UserError(this.error);
+}
 
 class ManageUserBloc extends Bloc<UserEvent, UserState>{
   FirebaseAuthenticationService fb_auth = 
@@ -42,25 +46,30 @@ class ManageUserBloc extends Bloc<UserEvent, UserState>{
 
   ManageUserBloc(UserState init):super(init){
     on<SignInEvent>((event, emit) async {
-      User? userMap = await fb_auth.signInWithEmailAndPassword(event.email, event.senha);
-
+      try {
+        User? userMap = await fb_auth.signInWithEmailAndPassword(event.email, event.senha);
       if (userMap==null) {
-        emit(UserNotFound());
+        emit(UserError("Não foi possível receber os dados!"));
       } else {
         UserModel user = await FirestoreDatabase.helper.getUser(userMap.uid);
         emit(UserFound(userMap.uid, user));
       }
+      } catch (e) {
+        emit(UserError("Não foi possível logar: ${e.toString()}"));
+      }
     });
     on<SignUpEvent>((event, emit) async {
-      User? userMap = await fb_auth.createUserWithEmailAndPassword(event.user!.email, event.user!.senha);
+      try {
+        User? userMap = await fb_auth.createUserWithEmailAndPassword(event.user!.email, event.user!.senha);
 
-      if (userMap==null) {
-        print('user error');
-        emit(UserError());
-      } else {
-        await FirestoreDatabase.helper.setUser(userMap.uid, event.user!);
-        print('entrou');
-        emit(UserState());
+        if (userMap==null) {
+          emit(UserError("Não foi possível receber os dados!"));
+        } else {
+          await FirestoreDatabase.helper.setUser(userMap.uid, event.user!);
+          emit(UserState());
+        }
+      } catch (e) {
+        emit(UserError("Não foi possível registrar: ${e.toString()}"));
       }
     });
     on<UpdateUserEvent>(((event, emit) async {

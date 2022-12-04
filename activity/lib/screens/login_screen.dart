@@ -18,22 +18,24 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocBuilder<ManageUserBloc, UserState>(
-        buildWhen: (previous, current) {
-          if(current is UserFound) {
-            Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const ActivityTabBar()));
+      body: BlocConsumer<ManageUserBloc, UserState>(
+        listener: (context, state) {
+          if(state is UserFound) {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home');
           }
           else {
-            print('veio aqui');
-            if (current is UserNotFound) {
+            if (state is UserNotFound) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Usuário não encontrado'))
               );
             }
+            if (state is UserError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.error))
+              );
+            }
           }
-
-          return false;
         },
         builder: (context, state) {
           return SingleChildScrollView(
@@ -73,7 +75,6 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 15, bottom: 0),
-                  //padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -109,8 +110,6 @@ class _LoginState extends State<Login> {
                         ManageUserBloc u = BlocProvider.of<ManageUserBloc>(context);
                         u.add(SignInEvent(email!, senha!));
                       }
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (_) => ActivityTabBar()));
                     },
                     child: const Text(
                       'Login',
@@ -121,22 +120,24 @@ class _LoginState extends State<Login> {
                 const SizedBox(
                   height: 130,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Novo por aqui?'),
-                    TextButton(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 80),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Novo por aqui?'),
+                      TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (_) => SingUp()));
+                          Navigator.pushNamed(context, '/signup');
                         },
                         child: const Text(
                           "Criar uma conta",
                           style: TextStyle(color: Colors.lightGreen),
                         ))
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             ),
           );

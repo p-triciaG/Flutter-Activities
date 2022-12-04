@@ -150,21 +150,23 @@ class AccountForms extends StatelessWidget {
                     ),
                   ),
                 ),
-                if(showLogin) Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Já possui uma conta?'),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Login()));
-                        },
-                        child: const Text(
-                          "Entrar",
-                          style: TextStyle(color: Colors.lightGreen),
-                        ))
-                  ],
+                if(showLogin) Padding(
+                  padding: const EdgeInsets.only(bottom: 80),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Já possui uma conta?'),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "Entrar",
+                            style: TextStyle(color: Colors.lightGreen),
+                          ))
+                    ],
+                  ),
                 )
               ],
             ),

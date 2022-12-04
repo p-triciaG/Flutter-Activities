@@ -1,10 +1,7 @@
-import 'package:activity/bloc/manage_location.dart';
-import 'package:activity/bloc/manage_user.dart';
-import 'package:activity/models/location.dart';
-import 'package:activity/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:activity/router.dart';
+import 'package:activity/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,27 +17,30 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  AppRouter _appRouter = AppRouter();
+
+   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider (
-      providers: [
-        BlocProvider(create: (_) => ManageLocationBloc()),
-        BlocProvider(create: (_) => ManageUserBloc(UserState()))
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.lightGreen,
-        ),
-        // onGenerateRoute: ,
-        home: const SplashScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.lightGreen,
       ),
+      onGenerateRoute: _appRouter.onGenerateRoute,
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }
