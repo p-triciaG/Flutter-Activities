@@ -4,17 +4,23 @@ import 'package:activity/models/location.dart';
 import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: const FirebaseOptions(
+    apiKey: "AIzaSyCNS5hPHxdi8_BZAFiqoYzI-yUnu7htrOU",
+    authDomain: "travelovers-cf801.firebaseapp.com",
+    projectId: "travelovers-cf801",
+    storageBucket: "travelovers-cf801.appspot.com",
+    messagingSenderId: "658410797854",
+    appId: "1:658410797854:web:ec044000f0d4d2fff5e70f"
+  ));
+  // await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // List<Location> allLocations = [
-  //   Location(title: 'Parque Nacional dos Lagos de Plitvice', subject: 'Lugar bacana', imagePath: 'image/OIP.jpg'),
-  //   Location(title: 'Parque Nacional Banff', description: 'Lugar bacana', imagePath: 'image/PBC.jpg'),
-  //   Location(title: 'Islas Galápagos', description: 'Lugar bacana', imagePath: 'image/IGE.jpg'),
-  // ];
 
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider (
       providers: [
         BlocProvider(create: (_) => ManageLocationBloc()),
-        BlocProvider(create: (_) => ManageUserBloc(UserState()))
+        // BlocProvider(create: (_) => ManageUserBloc(UserState()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lightGreen,
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

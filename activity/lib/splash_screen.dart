@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 5),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login())));
+            context, MaterialPageRoute(builder: (context) => const ActivityTabBar())));
   }
 
   @override

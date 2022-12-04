@@ -37,9 +37,9 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
               Tab(
                 icon: Icon(Icons.beach_access_sharp),
               ),
-              Tab(
-                icon: Icon(Icons.account_circle),
-              ),
+              // Tab(
+              //   icon: Icon(Icons.account_circle),
+              // ),
               Tab(
                 icon: Icon(Icons.brightness_5_sharp),
               ),
@@ -52,7 +52,7 @@ class _ActivityTabBarState extends State<ActivityTabBar> {
         body: TabBarView(
           children: <Widget>[
             ListaLocais(),
-            EditPerfil(),
+            // EditPerfil(),
             Perfil1(),
             Perfil2(),
           ],
