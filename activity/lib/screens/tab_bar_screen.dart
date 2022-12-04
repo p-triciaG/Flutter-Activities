@@ -1,15 +1,15 @@
 import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/models/location.dart';
 import 'package:activity/screens/add_location.dart';
-import 'package:activity/edit_perfil.dart';
-import 'package:activity/perfil_1.dart';
+import 'package:activity/screens/edit_perfil.dart';
+import 'package:activity/screens/perfil_1.dart';
 import 'package:activity/screens/lista_locais.dart';
-import 'package:activity/perfil_2.dart';
-import 'package:activity/splash_screen.dart';
+import 'package:activity/screens/perfil_2.dart';
+import 'package:activity/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'models/UserModel.dart';
+import '../models/UserModel.dart';
 
 class ActivityTabBar extends StatefulWidget {
   const ActivityTabBar({Key? key}) : super(key: key);

@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:activity/account_settings.dart';
+import 'package:activity/screens/account_settings.dart';
 import 'package:activity/bloc/manage_user.dart';
-import 'package:activity/tab_bar_screen.dart';
+import 'package:activity/screens/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_screen.dart';
-import 'models/UserModel.dart';
+import '../models/UserModel.dart';
 
 class SingUp extends StatefulWidget {
   SingUp({

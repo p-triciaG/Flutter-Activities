@@ -1,7 +1,7 @@
 import 'package:activity/bloc/manage_user.dart';
 import 'package:activity/models/UserModel.dart';
 import 'package:flutter/material.dart';
-import 'package:activity/account_settings.dart';
+import 'package:activity/screens/account_settings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditPerfil extends StatelessWidget {

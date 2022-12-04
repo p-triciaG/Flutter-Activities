@@ -1,4 +1,4 @@
-import 'package:activity/login_screen.dart';
+import 'package:activity/screens/login_screen.dart';
 import 'package:activity/models/UserModel.dart';
 import 'package:flutter/material.dart';
 
@@ -157,8 +157,8 @@ class AccountForms extends StatelessWidget {
                     const Text('Já possui uma conta?'),
                     TextButton(
                         onPressed: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (_) => Login()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => Login()));
                         },
                         child: const Text(
                           "Entrar",

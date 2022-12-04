@@ -1,6 +1,6 @@
 import 'package:activity/bloc/manage_user.dart';
-import 'package:activity/sing_up_screen.dart';
-import 'package:activity/tab_bar_screen.dart';
+import 'package:activity/screens/sing_up_screen.dart';
+import 'package:activity/screens/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

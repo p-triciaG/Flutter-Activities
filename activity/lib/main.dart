@@ -1,7 +1,7 @@
 import 'package:activity/bloc/manage_location.dart';
 import 'package:activity/bloc/manage_user.dart';
 import 'package:activity/models/location.dart';
-import 'package:activity/splash_screen.dart';
+import 'package:activity/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lightGreen,
         ),
+        // onGenerateRoute: ,
         home: const SplashScreen(),
       ),
     );
