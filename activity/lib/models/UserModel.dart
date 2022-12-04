@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   late String nome;
   late String email;
   late String senha;
@@ -25,9 +25,9 @@ class User {
 
   set setLocal(local) => this.localidade = local;
 
-  User(this.nome, this.email, this.senha, this.telefone, this.localidade);
+  UserModel(this.nome, this.email, this.senha, this.telefone, this.localidade);
 
-  User.sign(){
+  UserModel.sign(){
     nome = "";
     email = "";
     senha = "";
@@ -35,7 +35,7 @@ class User {
     localidade = "";
   }
 
-  User.fromMap(map){
+  UserModel.fromMap(map){
     nome = map["name"];
     email = map["email"];
     senha = map["password"];

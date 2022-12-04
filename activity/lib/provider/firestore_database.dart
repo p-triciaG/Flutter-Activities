@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:activity/models/UserModel.dart';
 import 'package:activity/models/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,6 +11,9 @@ class FirestoreDatabase {
 
   final CollectionReference locationCollection =
       FirebaseFirestore.instance.collection("location");
+
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("user");
 
   Future<int> insertLocale(Location location) async {
     DocumentReference ref = await locationCollection
@@ -37,6 +41,24 @@ class FirestoreDatabase {
         await locationCollection.get();
 
     return _locationListFromSnapshot(snapshot);
+  }
+
+  Future<UserModel> getUser(String uid) async {
+    DocumentSnapshot doc = await userCollection.doc(uid).get();
+
+    return UserModel.fromMap(doc);
+  }
+
+  // Future<String> setUser(String uid, UserModel user) async {
+  //   await userCollection.doc(uid).set(user);
+
+  //   return ref.id;
+  // }
+
+  Future<int> setUser(String id, UserModel user) async {
+    await userCollection.doc(id).set(user);
+
+    return 0;
   }
 
   Stream get stream {

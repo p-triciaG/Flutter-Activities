@@ -9,7 +9,7 @@ import 'package:activity/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'models/User.dart';
+import 'models/UserModel.dart';
 
 class ActivityTabBar extends StatefulWidget {
   const ActivityTabBar({Key? key}) : super(key: key);

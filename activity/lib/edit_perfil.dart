@@ -12,7 +12,7 @@
 //   Widget build(BuildContext context) {
 //     return BlocBuilder<ManageUserBloc, UserState>(
 //       builder: (context, state) {
-//         User? user;
+//         UserModel? user;
 //         if (state is UserFound) {
 //           user = state.user;
 //         }

@@ -1,5 +1,5 @@
 import 'package:activity/login_screen.dart';
-import 'package:activity/models/User.dart';
+import 'package:activity/models/UserModel.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
@@ -9,10 +9,10 @@ class AccountForms extends StatelessWidget {
   final String screenTitle;
   final Function _submit;
   final bool showLogin;
-  User? user;
+  UserModel? user;
 
   AccountForms(this.screenTitle, this._formKey, this._submit, { this.showLogin = true, this.user, Key? key}) : super(key: key){
-    user ??= User.sign();
+    user ??= UserModel.sign();
   }
 
   @override
@@ -39,7 +39,7 @@ class AccountForms extends StatelessWidget {
           ),
           Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.onUserModelInteraction,
             child: Column(
               children: [
                 Padding(
