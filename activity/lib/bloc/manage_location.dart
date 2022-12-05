@@ -22,7 +22,7 @@ class UpdateList extends LocationEvent{
 }
 
 class DeleteLocationEvent extends LocationEvent{
-  int id;
+  String id;
   DeleteLocationEvent(this.id);
 }
 
@@ -33,6 +33,8 @@ class LocationState{
 
 class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
   List<Location> list = [];
+  bool showAll = true;
+
   ManageLocationBloc():super(LocationState([])){
     FirestoreDatabase.helper.stream.listen((event) {
       list = event;
@@ -44,7 +46,7 @@ class ManageLocationBloc extends Bloc<LocationEvent, LocationState>{
     });
 
     on<DeleteLocationEvent>((event, emit) async {
-      if (!event.id.isNaN){
+      if (event.id.isNotEmpty){
         await FirestoreDatabase.helper.deleteLocale(event.id);
       }
     });

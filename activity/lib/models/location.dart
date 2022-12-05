@@ -1,10 +1,11 @@
 class Location{
-  int? id;
+  String? id;
   String title = '';
   String subject = '';
   String description = '';
   String address = '';
   String imagePath = '';
+  String uid = '';
 
   Location({title, subject, address, description, imagePath}){
     if (title != null) this.title = title;
@@ -20,6 +21,7 @@ class Location{
     address = map["address"];
     description = map["description"];
     imagePath = map["image"];
+    if (map["uid"] != null) uid = map["uid"];
   }
 
   search(String text) {
@@ -30,13 +32,21 @@ class Location{
     return false;
   }
 
-  toMap() {
+  isFromUser(String id){
+    return uid == id;
+  }
+
+  toMap({ idUse = false }) {
     var map = <String, dynamic>{};
     map["title"] = title;
     map["subject"] = subject;
     map["image"] = imagePath;
     map["description"] = description;
     map["address"] = address;
+    map["uid"] = uid;
+    if (idUse) {
+      map["id"] = (id == null) ? '' : id;
+    }
     return map;
   }
 }

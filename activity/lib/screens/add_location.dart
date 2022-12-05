@@ -1,4 +1,5 @@
 import 'package:activity/bloc/manage_location.dart';
+import 'package:activity/bloc/manage_user.dart';
 import 'package:activity/models/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,37 +67,44 @@ class _AddLocationState extends State<AddLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar( title: const Text("Adicionar") ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            renderTextField('Título', (String value){ newLocation.title = value; }, text: newLocation.title),
-            renderTextField('Assunto', (String value){ newLocation.subject = value; }, text: newLocation.subject, maxChars: 150, maxLines: 3),
-            renderTextField('Descrição', (String value){ newLocation.description = value; }, text: newLocation.description, maxChars: 0, maxLines: 5, allBorder: true),
-            const Text("Escolha uma imagem",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-            )),
-            const Padding(padding: EdgeInsets.all(8)),
-            renderImage('image/OIP.jpg'),
-            renderImage('image/PBC.jpg'),
-            renderImage('image/IGE.jpg'),
-            const Padding(padding: EdgeInsets.all(8)),
-            ElevatedButton(
-              child: const Text("Criar publicação",
-                style: TextStyle( fontSize: 16, )),
-              onPressed: () {
-                ManageLocationBloc crLocation = BlocProvider.of<ManageLocationBloc>(context);
-                crLocation.add(AddLocationEvent(newLocation));
-                Navigator.pop(context);
-              },
+    return BlocBuilder<ManageUserBloc, UserState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar( title: const Text("Adicionar") ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                renderTextField('Título', (String value){ newLocation.title = value; }, text: newLocation.title),
+                renderTextField('Assunto', (String value){ newLocation.subject = value; }, text: newLocation.subject, maxChars: 150, maxLines: 3),
+                renderTextField('Descrição', (String value){ newLocation.description = value; }, text: newLocation.description, maxChars: 0, maxLines: 5, allBorder: true),
+                const Text("Escolha uma imagem",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                )),
+                const Padding(padding: EdgeInsets.all(8)),
+                renderImage('image/OIP.jpg'),
+                renderImage('image/PBC.jpg'),
+                renderImage('image/IGE.jpg'),
+                const Padding(padding: EdgeInsets.all(8)),
+                ElevatedButton(
+                  child: const Text("Criar publicação",
+                    style: TextStyle( fontSize: 16, )),
+                  onPressed: () {
+                    ManageLocationBloc crLocation = BlocProvider.of<ManageLocationBloc>(context);
+                    if(state is UserFound){
+                      newLocation.uid = state.id;
+                    }
+                    crLocation.add(AddLocationEvent(newLocation));
+                    Navigator.pop(context);
+                  },
+                ),
+                const Padding(padding: EdgeInsets.all(8)),
+              ],
             ),
-            const Padding(padding: EdgeInsets.all(8)),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

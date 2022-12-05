@@ -12,7 +12,7 @@ class LocaleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector (
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LocationExpand(locale))),
+      onTap: () => Navigator.pushNamed(context, '/location', arguments: locale.toMap(idUse: true)),
       child: Column(
         children: [
           Container(

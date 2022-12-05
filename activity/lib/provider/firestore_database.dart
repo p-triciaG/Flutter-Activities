@@ -31,6 +31,7 @@ class FirestoreDatabase {
     List<Location> locationCollection = [];
     for (var doc in snapshot.docs) {
       Location location = Location.fromMap(doc.data());
+      location.id = doc.id;
       locationCollection.add(location);
     }
     return locationCollection;

@@ -1,7 +1,10 @@
 
+import 'package:activity/bloc/manager_filter.dart';
+import 'package:activity/models/location.dart';
 import 'package:activity/screens/add_location.dart';
 import 'package:activity/screens/edit_perfil.dart';
 import 'package:activity/screens/login_screen.dart';
+import 'package:activity/screens/publi_location.dart';
 import 'package:activity/screens/sing_up_screen.dart';
 import 'package:activity/screens/splash_screen.dart';
 import 'package:activity/screens/tab_bar_screen.dart';
@@ -40,9 +43,24 @@ class AppRouter {
           child: EditPerfil(),
         ));
       case '/addLocation':
-        return MaterialPageRoute(builder: (_) => BlocProvider.value(
-          value: _locationBloc,
+        return MaterialPageRoute(builder: (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: _locationBloc),
+            BlocProvider.value(value: _userBloc),
+          ],
           child: const AddLocation(),
+        ));
+      case '/location':
+        late Location location;
+        if (settings.arguments is Map) {
+          location = Location.fromMap(settings.arguments);
+        }
+        return MaterialPageRoute(builder: (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: _locationBloc),
+            BlocProvider.value(value: _userBloc),
+          ],
+          child: LocationExpand(location),
         ));
       default:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
